@@ -1,5 +1,7 @@
 # Prompt Dock · 快捷指令提示词库
 
+**简体中文** · [English](README.en.md)
+
 Prompt Dock 是一个使用 Tauri v2、Rust 和原生 HTML、CSS、TypeScript 的桌面提示词库。你可以编辑并保存常用提示词，也可以从系统托盘直接复制已保存的内容。
 
 [GitHub 仓库](https://github.com/shaoxiangm/prompt-dock)
