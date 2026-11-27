@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>快捷指令提示词库</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m12 4-8 5 8 5 8-5-8-5Z"/><path d="m4 14 8 5 8-5"/></svg>
+        </span>
+        <h1>快捷指令提示词库</h1>
+      </div>
+      <div class="preferences">
+        <label class="switch">
+          <span id="theme-label">夜间模式</span>
+          <input id="theme-toggle" type="checkbox" role="switch">
+          <span class="track" aria-hidden="true"></span>
+        </label>
+        <label class="switch">
+          <span>开机自启</span>
+          <input id="autostart-toggle" type="checkbox" role="switch" disabled>
+          <span class="track" aria-hidden="true"></span>
+        </label>
+      </div>
+    </header>
+    <main class="workspace">
+      <section class="library" aria-label="指令库">
+        <div class="tiles" id="tiles" aria-busy="true">
+          <button type="button" id="add-prompt" class="tile add-tile" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            <span>新建指令</span>
+          </button>
+        </div>
+      </section>
+      <section class="editor" aria-labelledby="editor-heading">
+        <h2 id="editor-heading">预览与编辑</h2>
+        <p id="empty-editor">正在加载指令…</p>
+        <form id="editor" hidden>
+          <div class="name-color">
+            <label class="field">
+              <span>指令名称</span>
+              <input id="prompt-title" type="text" autocomplete="off" required>
+            </label>
+            <fieldset id="colors">
+              <legend>配色</legend>
+            </fieldset>
+          </div>
+          <label class="field content-field">
+            <span>提示词内容</span>
+            <textarea id="prompt-content" spellcheck="false" required></textarea>
+          </label>
+          <div class="actions">
+            <div class="copy-action">
+              <button type="button" class="primary" id="copy-prompt">立即复制</button>
+              <span id="copy-feedback" role="status"></span>
+            </div>
+            <button type="submit" id="save-prompt">保存修改</button>
+            <button type="button" class="danger" id="delete-prompt">删除指令</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer id="feedback" role="status" aria-live="polite"></footer>
+    <dialog id="delete-dialog" aria-labelledby="delete-heading">
+      <form method="dialog">
+        <h2 id="delete-heading">删除指令</h2>
+        <p id="delete-message"></p>
+        <div class="dialog-actions">
+          <button value="cancel" autofocus>取消</button>
+          <button value="delete" class="danger">确认删除</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
