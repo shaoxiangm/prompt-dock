@@ -4,7 +4,7 @@
 
 Prompt Dock is a desktop prompt library built with Tauri v2, Rust, and plain HTML, CSS, and TypeScript. Save and edit frequently used prompts, or copy saved prompts directly from the system tray.
 
-[GitHub repository](https://github.com/shaoxiangm/prompt-dock)
+[Download the latest release](https://github.com/shaoxiangm/prompt-dock/releases/latest) · [GitHub repository](https://github.com/shaoxiangm/prompt-dock)
 
 ## Usage
 

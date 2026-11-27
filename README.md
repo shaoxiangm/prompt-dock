@@ -4,7 +4,7 @@
 
 Prompt Dock 是一个使用 Tauri v2、Rust 和原生 HTML、CSS、TypeScript 的桌面提示词库。你可以编辑并保存常用提示词，也可以从系统托盘直接复制已保存的内容。
 
-[GitHub 仓库](https://github.com/shaoxiangm/prompt-dock)
+[下载最新版](https://github.com/shaoxiangm/prompt-dock/releases/latest) · [GitHub 仓库](https://github.com/shaoxiangm/prompt-dock)
 
 ## 使用
 
