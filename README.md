@@ -59,4 +59,6 @@ npm run tauri -- build --target aarch64-apple-darwin --bundles app,dmg -- --lock
 
 手动触发 Actions 里的「打包和发布」可并行构建两个平台，产物可在对应运行记录中下载。发布版本时同步更新 `package.json`、`package-lock.json`、`src-tauri/Cargo.toml`、`src-tauri/Cargo.lock` 和 `src-tauri/tauri.conf.json` 的版本号，然后推送对应标签，例如 `git tag v0.1.0` 和 `git push origin v0.1.0`。两个构建均成功后，工作流会将独立 EXE、NSIS 安装包、DMG 和装有 `.app` 的 ZIP 发布到 GitHub Releases。[查看打包工作流](https://github.com/shaoxiangm/prompt-dock/actions/workflows/release.yml)
 
+需要重新打包已有版本时，可在 `main` 上手动运行工作流，并在 `release_tag` 填入已有的 `v*` 标签。运行会从该标签读取源码，并把产物上传到对应版本。
+
 Windows x64 的 0.1.0 本地构建中，独立 EXE 为 3.06 MiB，NSIS 安装包为 1.15 MiB。本机实测主进程工作集在静默启动后约为 12.65 MiB，在关闭窗口并回收 WebView2 后约为 8.55 MiB。两次采样均无 WebView2 子进程。

@@ -4,6 +4,11 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 可选。填入已有的 v 标签以重新构建并发布该版本
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -26,6 +31,8 @@ jobs:
             artifact: prompt-dock-macos-arm64
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag && format('refs/tags/{0}', inputs.release_tag) || github.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -57,7 +64,7 @@ jobs:
           dmg=("$root"/dmg/*.dmg)
           test "${#dmg[@]}" -eq 1
           cp "${dmg[0]}" packages/prompt-dock-macos-arm64.dmg
-          lipo -verify_arch arm64 "$root/macos/Prompt Dock.app/Contents/MacOS/prompt-dock"
+          lipo "$root/macos/Prompt Dock.app/Contents/MacOS/prompt-dock" -verify_arch arm64
           ditto -c -k --keepParent "$root/macos/Prompt Dock.app" packages/prompt-dock-macos-arm64-app.zip
       - uses: actions/upload-artifact@v4
         with:
@@ -67,13 +74,13 @@ jobs:
 
   release:
     name: 发布 GitHub Release
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || startsWith(inputs.release_tag, 'v')
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
     concurrency:
-      group: prompt-dock-release-${{ github.ref }}
+      group: prompt-dock-release-${{ inputs.release_tag || github.ref_name }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -85,7 +92,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           files=(packages/*)
           test "${#files[@]}" -eq 4
